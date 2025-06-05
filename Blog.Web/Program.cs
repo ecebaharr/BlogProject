@@ -1,7 +1,32 @@
+using Blog.DataAccess.Configurations;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using Blog.DataAccess.Contexts;
+using Blog.DataAccess.Repositories;
+
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
+
+
+
+
+builder.Services.AddScoped<PostRepository>();
 // Add services to the container.
+builder.Services.AddScoped<MongoDbContext>();
 builder.Services.AddControllersWithViews();
+// MongoDbSettings -> appsettings.json'dan ayarlarý okur
+builder.Services.Configure<MongoDbSettings>(
+    builder.Configuration.GetSection("MongoDbSettings")
+);
+builder.Services.AddSingleton<IMongoClient>(sp =>
+{
+    var settings = sp.GetRequiredService<IOptions<MongoDbSettings>>().Value;
+    return new MongoClient(settings.ConnectionString);
+});
+
 
 var app = builder.Build();
 

@@ -2,7 +2,7 @@
 {
     public class Post
     {
-        public int Id { get; set; }                         // Primary Key
+        public string Id { get; set; }                         // Primary Key
         public string Title { get; set; }                   // Başlık
         public string Content { get; set; }                 // İçerik
         public string? ImageUrl { get; set; }               // Opsiyonel: Görsel yolu
