@@ -1,0 +1,7 @@
+﻿@model Blog.Core.Entities.Post
+
+<h2>@Model.Title</h2>
+<p><strong>Tarih:</strong> @Model.CreatedDate.ToShortDateString()</p>
+<p>@Model.Content</p>
+
+<a href="/Post/Index" class="btn btn-secondary">Geri Dön</a>

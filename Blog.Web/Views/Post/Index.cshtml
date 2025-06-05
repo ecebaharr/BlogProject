@@ -1,0 +1,30 @@
+﻿@model List<Blog.Core.Entities.Post>
+
+<h2>Post Listesi</h2>
+
+<a class="btn btn-primary" href="/Post/Create">Yeni Post Ekle</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Başlık</th>
+            <th>İçerik</th>
+            <th>Tarih</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var post in Model)
+        {
+            <tr>
+                <td>@post.Title</td>
+                <td>@(post.Content.Length > 50 ? post.Content.Substring(0, 50) + "..." : post.Content)</td>
+                <td>@post.CreatedDate.ToShortDateString()</td>
+                <td>
+                    <a class="btn btn-info btn-sm" href="/Post/Details/@post.Id">Detay</a>
+                    <a class="btn btn-danger btn-sm" href="/Post/Delete/@post.Id">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
