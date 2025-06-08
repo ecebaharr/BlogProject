@@ -43,10 +43,15 @@ namespace Blog.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(string id, Post post)
         {
+            var existingPost = await _postRepository.GetByIdAsync(id);
+            if (existingPost == null)
+                return NotFound(new { message = "Güncellenmek istenen post bulunamadý." });
+
             post.Id = id;
             await _postRepository.UpdateAsync(id, post);
             return NoContent();
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
